@@ -150,35 +150,32 @@ if (*((uint32_t *) REGISTER_ADDRESS) & (1 << 12))
 ```
 
 ```mermaid
-flowchart TD
- subgraph s1["Main Program"]
-        n1["GPIO Port Clock<br>enable"]
+flowchart TB
+    subgraph s1["Main Program"]
+        direction TB
+        n2["Begin"]
         n3["GPIO Port<br>configuration"]
+        n4["Main Variables<br>initialization"]
         n5["Infinite Loop<br>begin"]
-        n6["Infinite Loop<br>end"]
-        n7["Process<br>according<br>to the variant"]
-        n8["Buttons<br>read"]
-        n9["LEDs<br>control"]
-        n10["Begin"]
-        n11["End"]
-  end
-    n2["Macro<br>definitions"] --> s1
-    n1 --> n3
-    n3 --> n5
-    n5 --> n8
-    n8 --> n7
-    n7 --> n9
-    n9 --> n6
-    n10 --> n1
-    n6 --> n11
+        n6["Loop Program"]
+        n7["Infinite Loop<br>end"]
+        n8["End"]
+    end
+    
+    n1["Macro<br>definitions"] --> s1
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+    n7 --> n8
 
-    n3@{ shape: lin-proc}
+    n1@{ shape: lin-proc}
+    n2@{ shape: terminal}
+    n3@{ shape: subproc}
+    n4@{ shape: lin-proc}
     n5@{ shape: loop-limit}
-    n6@{ shape: loop-limit}
-    n7@{ shape: subproc}
-    n8@{ shape: out-in}
-    n9@{ shape: in-out}
-    n10@{ shape: terminal}
-    n11@{ shape: terminal}
-    n2@{ shape: lin-proc}
+    n6@{ shape: subproc}
+    n7@{ shape: loop-limit}
+    n8@{ shape: terminal}
 ```
