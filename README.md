@@ -148,3 +148,37 @@ if (*((uint32_t *) REGISTER_ADDRESS) & (1 << 12))
     // Bit 12 is set
 }
 ```
+
+```mermaid
+flowchart TD
+ subgraph s1["Main Program"]
+        n1["GPIO Port Clock<br>enable"]
+        n3["GPIO Port<br>configuration"]
+        n5["Infinite Loop<br>begin"]
+        n6["Infinite Loop<br>end"]
+        n7["Process<br>according<br>to the variant"]
+        n8["Buttons<br>read"]
+        n9["LEDs<br>control"]
+        n10["Begin"]
+        n11["End"]
+  end
+    n2["Macro<br>definitions"] --> s1
+    n1 --> n3
+    n3 --> n5
+    n5 --> n8
+    n8 --> n7
+    n7 --> n9
+    n9 --> n6
+    n10 --> n1
+    n6 --> n11
+
+    n3@{ shape: lin-proc}
+    n5@{ shape: loop-limit}
+    n6@{ shape: loop-limit}
+    n7@{ shape: subproc}
+    n8@{ shape: out-in}
+    n9@{ shape: in-out}
+    n10@{ shape: terminal}
+    n11@{ shape: terminal}
+    n2@{ shape: lin-proc}
+```
